@@ -1,0 +1,14 @@
+.specifi{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    width: 40%;
+    margin-top: 5%;
+    border-radius: 10%;
+    background-color: rgba(255, 255, 255, 0.700);
+    transition: background-color 1s ease-out;
+}
+.specifi:hover{
+    background-color:rgba(255, 255, 255, 0.900);
+}

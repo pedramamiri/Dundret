@@ -1,0 +1,40 @@
+.Header{
+    position: fixed;
+    top:0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    height: 10vh;
+    background-color: rgb(255, 255, 255,0.8);
+    transition: height 1s ease-out ;
+    -webkit-transition: height 1s ease-out;
+    
+}
+.Header:hover{
+    height: 12vh;
+}
+.login{
+    height: 100%;
+}
+.login button{
+    height: 100%;
+    width: 12vw;
+    border: none;
+    cursor: pointer;
+    font-size: x-large;
+    outline: none;
+    color: white;
+    background-color: rgb(65, 74, 51,0.3);
+    transition: width 1s ease-out,background-color 1s ease-out;
+}
+.Header:hover .login button{
+    width: 14vw;
+    background-color: rgb(65, 74, 51,0.5);
+}
+.login button:active{
+    color:rgba(166, 46, 48, 0.8);
+}
+
+

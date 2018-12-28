@@ -1,0 +1,42 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    color:#4d4d4d;
+}
+
+.form div{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    width: 100%;
+}
+.form div input{
+    outline: none;
+    border: none;
+    padding: 5px;
+    border-radius: 2px;
+    box-shadow: 2px 2px #4d4d4dad;
+}
+button{
+    outline: none;
+    margin: 10px;
+    width: 60%;
+    border:none;
+    background-color: rgb(212, 209, 209);
+    border-radius: 5px;
+    color: white;
+    font-size: larger;
+    padding: 2px;
+    cursor: pointer;
+    box-shadow: 1px 1px #4d4d4dad;
+}
+button:last-child{
+    width: 90%;
+    background-color: #4d4d4d;
+    margin: 12px;
+}
+
+
+
