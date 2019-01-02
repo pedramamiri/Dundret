@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const Sizeschema = require('./Size');
+const ConfigSchema = require('./Config');
 const Schema   = mongoose.Schema;
 
 //Create ski schema
-const Skischema = new Schema({
+const SkiSchema = new Schema({
     name:{
         type:String,
         require:true
@@ -12,7 +12,7 @@ const Skischema = new Schema({
         type:String,
         require:false
     },
-    sizes:[Sizeschema],
+    configs:[ConfigSchema],
     price:{
         type:Number,
         require:true
@@ -32,6 +32,6 @@ const Skischema = new Schema({
 
 })
 
-const Ski = mongoose.model('Ski',Skischema);
+const Ski = mongoose.model('Ski',SkiSchema);
 module.exports = Ski;
 

@@ -3,6 +3,8 @@ const router  = express.Router();
 
 //skis model 
 const Ski = require('../../models/Ski');
+//Size Model
+const Size = require('../../models/Size');
 
 
 // @route    GET api/skis
@@ -15,27 +17,54 @@ router.get('/',(req,res)=>{
 });
 
 // @route    POST api/skis
-// @desc     Add a new ski
+// @desc     Add a new ski && build saze category att the same time
 // @access   Public
 router.post('/',(req,res)=>{
 
     const newSki = new Ski({
-        name    : req.body.name,
-        model   : req.body.model,
-        price   : req.body.price,
-        image   : req.body.image,
-        type    : req.body.type,
-        desc    : req.body.desc,
-        sizes   : req.body.sizes.map(size =>(
+        name      : req.body.name,
+        model     : req.body.model,
+        price     : req.body.price,
+        image     : req.body.image,
+        type      : req.body.type,
+        desc      : req.body.desc,
+        configs   : req.body.configs.map(config =>(
             {
-                length      : size.length,
-                qty         : size.qty,
+                length      : config.length,
+                qty         : config.qty,
             } 
         ))    
     })
-    newSki.save()
-        .then(ski=>res.json(ski))
-        .catch((err)=> console.log(err))
+    
+    function buildingSizeCategory(){
+        return new Promise((resolve,reject)=>{
+            req.body.configs.map(config=>{
+                Size.updateOne(
+                    {length:config.length},
+                    {  
+                        "$set": { "length": config.length },
+                        "$push": { "skis": newSki._id }     
+                    },
+                    {upsert:true},
+                    (err,size)=>{
+                        if (err) return res.json(err); 
+                    }
+                )  
+            }) 
+            resolve({success:true})
+        })
+    };
+    const saveSki =(function(){
+        return new Promise((resolve,reject)=>{
+            newSki.save()
+             .then(ski=>resolve(ski))
+        })
+    })()
+        .then(()=> {
+            buildingSizeCategory()
+            .then((success)=>res.json(success))
+        })
+        .catch((err)=> res.json(err))
 });
 
 
