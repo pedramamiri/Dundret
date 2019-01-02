@@ -1,13 +1,10 @@
 .FrontPage{
     display: flex;
     justify-content: center;
-    width: 100vw;
-    height: 100vh;
-
 }
 canvas{
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background-image: url('../../assets/images/background/home.jpg');
     background-attachment: fixed;
     background-repeat: no-repeat;

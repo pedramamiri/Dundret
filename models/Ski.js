@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Sizeschema = require('./Size');
 const Schema   = mongoose.Schema;
 
 //Create ski schema
@@ -7,10 +8,11 @@ const Skischema = new Schema({
         type:String,
         require:true
     },
-    size:{
-        type:Array,
-        require:true
+    model:{
+        type:String,
+        require:false
     },
+    sizes:[Sizeschema],
     price:{
         type:Number,
         require:true

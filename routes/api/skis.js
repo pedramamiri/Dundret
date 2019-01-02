@@ -14,28 +14,30 @@ router.get('/',(req,res)=>{
         .then(skis=>res.json(skis))
 });
 
-// @route    POST api/families
-// @desc     Add a new family
+// @route    POST api/skis
+// @desc     Add a new ski
 // @access   Public
-/*router.post('/',(req,res)=>{
+router.post('/',(req,res)=>{
 
-    const newFamily = new Family({
-        familyName  : req.body.familyName,
-        familyCode  : req.body.familyCode,
-        admin       : req.body.admin,
-        members     : req.body.members.map(member =>(
+    const newSki = new Ski({
+        name    : req.body.name,
+        model   : req.body.model,
+        price   : req.body.price,
+        image   : req.body.image,
+        type    : req.body.type,
+        desc    : req.body.desc,
+        sizes   : req.body.sizes.map(size =>(
             {
-                name         : member.name,
-                email        : member.email,
-                personalCode : member.personalCode
+                length      : size.length,
+                qty         : size.qty,
             } 
         ))    
     })
-    newFamily.save()
-        .then(family=>res.json(family))
+    newSki.save()
+        .then(ski=>res.json(ski))
         .catch((err)=> console.log(err))
 });
-*/
+
 
 
 // @route    DELETE api/families

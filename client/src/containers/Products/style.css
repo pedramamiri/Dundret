@@ -1,0 +1,24 @@
+.products{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    left: 100%;
+}
+.back{
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.250);
+    width: 3%;
+    height: 100%;
+    transition: background-color 0.5s ease-out,width 0.5s ease-out;
+}
+.back:hover{
+    background-color: rgba(0, 0, 0, 0.300);
+    width: 4%;
+}
+.back svg{
+    margin-left: 5px;
+    cursor: pointer;
+}
