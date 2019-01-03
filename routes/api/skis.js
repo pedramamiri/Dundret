@@ -71,55 +71,38 @@ router.post('/',(req,res)=>{
 // @route    POST api/skis
 // @desc     Get related ski,search in size category
 // @access   Public
-/*router.post('/search',(req,res)=>{
+router.post('/search',(req,res)=>{
 
-
-
-    const specifi = {
-              : req.body.name,
-        model     : req.body.model,
-        price     : req.body.price,
-        image     : req.body.image,
-        type      : req.body.type,
-        desc      : req.body.desc,
-        configs   : req.body.configs.map(config =>(
-            {
-                length      : config.length,
-                qty         : config.qty,
-            } 
-        ))    
-    })
+    if(typeof req.body.skiLength === "object"){
+        const search = {
+            minLength : req.body.skiLength.min,
+            maxLength : req.body.skiLength.max,
+        }
+        Size.find({length:{$gt:search.minLength,$lt:search.maxLength}})
+         .populate('skis')
+         .exec(function (err, data) {
+            if (err){
+               console.log(err)  
+            }            
+            res.json(data);
+        });
+    }else{
+        const search = {
+            length : req.body.skiLength
+        }
+        Size.find({length:search.length})
+         .populate('skis')
+         .exec(function (err, data) {
+            if (err){
+               console.log(err)  
+            }            
+            res.json(data);
+        });
+        
+    }
     
-    function buildingSizeCategory(){
-        return new Promise((resolve,reject)=>{
-            req.body.configs.map(config=>{
-                Size.updateOne(
-                    {length:config.length},
-                    {  
-                        "$set": { "length": config.length },
-                        "$push": { "skis": newSki._id }     
-                    },
-                    {upsert:true},
-                    (err,size)=>{
-                        if (err) return res.json(err); 
-                    }
-                )  
-            }) 
-            resolve({success:true})
-        })
-    };
-    const saveSki =(function(){
-        return new Promise((resolve,reject)=>{
-            newSki.save()
-             .then(ski=>resolve(ski))
-        })
-    })()
-        .then(()=> {
-            buildingSizeCategory()
-            .then((success)=>res.json(success))
-        })
-        .catch((err)=> res.json(err))
-});*/
+       
+});
 
 
 

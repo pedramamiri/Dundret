@@ -33,9 +33,6 @@ function Calculator(specifi){
 
     }
         
-
-    
-
     return {
         calculation : this.calculation
     }
