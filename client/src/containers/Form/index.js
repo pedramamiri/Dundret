@@ -37,12 +37,11 @@ class Form extends Component {
       classic:this.state.classic,
       freeStyle:this.state.freeStyle
     }
-    this.props.getSpecifi(data)
     const calc = new Calculator(data);
-    console.log(calc.calculation());
+    const specifi = calc.calculation();
+    this.props.getSpecifi(specifi)
 
     const width = window.innerWidth
-    
     window.scrollTo({
       top: 0, 
       left: width, 

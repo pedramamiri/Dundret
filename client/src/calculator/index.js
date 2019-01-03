@@ -12,7 +12,7 @@ function Calculator(specifi){
             this.classic ? this.data.type = 'classic' : this.data.type = 'freeStyle';
 
         }else if(this.age >= 5 && this.age <= 8){
-            this.data.skiLength = [this.length + 10,this.length + 20]
+            this.data.skiLength = {min:this.length + 10, max:this.length + 20}
             this.classic ? this.data.type = 'classic' : this.data.type = 'freeStyle'
 
         }else if(this.age > 8){
@@ -25,7 +25,7 @@ function Calculator(specifi){
                 }
             }
             if(this.freeStyle){
-                this.data.skiLength = [this.length + 10 , this.length + 15]
+                this.data.skiLength = {min:this.length + 10 , max:this.length + 15}
                 this.data.type = 'freeStyle';
             }
         }

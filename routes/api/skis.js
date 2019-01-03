@@ -35,6 +35,60 @@ router.post('/',(req,res)=>{
             } 
         ))    
     })
+    // make size category
+    function buildingSizeCategory(){
+        return new Promise((resolve,reject)=>{
+            req.body.configs.map(config=>{
+                Size.updateOne(
+                    {length:config.length},
+                    {  
+                        "$set": { "length": config.length },
+                        "$push": { "skis": newSki._id }     
+                    },
+                    {upsert:true},
+                    (err,size)=>{
+                        if (err) return res.json(err); 
+                    }
+                )  
+            }) 
+            resolve({success:true})
+        })
+    };
+    // save ski
+    const saveSki =(function(){
+        return new Promise((resolve,reject)=>{
+            newSki.save()
+             .then(ski=>resolve(ski))
+        })
+    })()
+        .then(()=> {
+            buildingSizeCategory()
+            .then((success)=>res.json(success))
+        })
+        .catch((err)=> res.json(err))
+});
+
+// @route    POST api/skis
+// @desc     Get related ski,search in size category
+// @access   Public
+/*router.post('/search',(req,res)=>{
+
+
+
+    const specifi = {
+              : req.body.name,
+        model     : req.body.model,
+        price     : req.body.price,
+        image     : req.body.image,
+        type      : req.body.type,
+        desc      : req.body.desc,
+        configs   : req.body.configs.map(config =>(
+            {
+                length      : config.length,
+                qty         : config.qty,
+            } 
+        ))    
+    })
     
     function buildingSizeCategory(){
         return new Promise((resolve,reject)=>{
@@ -65,18 +119,18 @@ router.post('/',(req,res)=>{
             .then((success)=>res.json(success))
         })
         .catch((err)=> res.json(err))
-});
+});*/
 
 
 
-// @route    DELETE api/families
-// @desc     Delete a family
+// @route    DELETE api/skis
+// @desc     Delete a ski
 // @access   Public
-/*router.delete('/:id',(req,res)=>{
-    Family.findById(req.params.id)
-        .then((family)=> Family.remove(family).then(()=>res.json({success:true})))
+router.delete('/:id',(req,res)=>{
+    Ski.findById(req.params.id)
+        .then((ski)=> Ski.remove(ski).then(()=>res.json({success:true})))
         .catch(err=>res.status(404).json({success:false}))          
 });
-*/
+
 
 module.exports = router
