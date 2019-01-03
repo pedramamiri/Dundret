@@ -9,11 +9,13 @@ function Calculator(specifi){
     this.calculation = ()=>{
         if(this.age <= 4){
             this.data.skiLength = this.length
-        }
-        if(this.age >= 5 || this.age <= 8){
+            this.classic ? this.data.type = 'classic' : this.data.type = 'freeStyle';
+
+        }else if(this.age >= 5 && this.age <= 8){
             this.data.skiLength = [this.length + 10,this.length + 20]
-        }
-        if(this.age > 8){
+            this.classic ? this.data.type = 'classic' : this.data.type = 'freeStyle'
+
+        }else if(this.age > 8){
             if(this.classic){
                 if(this.length > 207){
                     this.data.err = 'its not legal'
