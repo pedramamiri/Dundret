@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect }     from 'react-redux';
 import { getSpecifi }  from '../../actions/specifiAction';
+import { getSizes }    from '../../actions/sizeActions';
 import PropTypes       from 'prop-types';
 import classNames      from 'classnames';
 import {Calculator}    from '../../calculator'; 
@@ -40,7 +41,7 @@ class Form extends Component {
     const calc = new Calculator(data);
     const specifi = calc.calculation();
     this.props.getSpecifi(specifi)
-
+    this.props.getSizes(specifi)
     const width = window.innerWidth
     window.scrollTo({
       top: 0, 
@@ -80,6 +81,7 @@ class Form extends Component {
 
 Form.propTypes = {
   getSpecifi: PropTypes.func.isRequired,
+  getSizes  : PropTypes.func.isRequired,
   specifi: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array
@@ -91,4 +93,4 @@ const mapStateToProps = (state)=>({
   specifi: state.specification
 }) 
   
-export default connect(mapStateToProps,{getSpecifi})(Form);
+export default connect(mapStateToProps,{getSpecifi,getSizes})(Form);

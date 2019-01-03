@@ -78,7 +78,7 @@ router.post('/search',(req,res)=>{
             minLength : req.body.skiLength.min,
             maxLength : req.body.skiLength.max,
         }
-        Size.find({length:{$gt:search.minLength,$lt:search.maxLength}})
+        Size.find({length:{$gte:search.minLength,$lte:search.maxLength}})
          .populate('skis')
          .exec(function (err, data) {
             if (err){
@@ -99,9 +99,8 @@ router.post('/search',(req,res)=>{
             res.json(data);
         });
         
-    }
-    
-       
+    }   
+      
 });
 
 

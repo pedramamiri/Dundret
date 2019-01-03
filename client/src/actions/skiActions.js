@@ -6,26 +6,25 @@ import {
        } from './types';
 import axios from 'axios';
 
-export const getskis = ()=> dispatch=>{
+export const getskis = (data)=> dispatch=>{
     dispatch(setSkiLoading());
-    axios
-        .get('/api/skis')
-        .then(res=>
-            dispatch({
-                type:GET_SKIS,
-                payload:res.data
-            })
-            )
+    const skis = data.map(size=>
+        size.skis.map(ski=>ski)
+    )  
+    dispatch({
+        type:GET_SKIS,
+        payload:skis[0]
+    })     
 };
 
-export const addSki = ski => dispatch=>{
+/*export const addSki = ski => dispatch=>{
     axios.post('/api/ski',ski).then(res=>
             dispatch({
                 type:ADD_SKI,
                 payload:res.data  
             })
             )
-};
+};*/
 
 export const setSkiLoading = ()=>{
     return {
