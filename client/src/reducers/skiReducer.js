@@ -2,7 +2,8 @@ import {
     GET_SKIS,
     ADD_SKI,
     DELETE_SKI,
-    SKIS_LOADING
+    SKIS_LOADING,
+    SKIS_LOADED
        } from '../actions/types'
 const initialState = {
     loading :false,
@@ -16,7 +17,7 @@ export default (state = initialState,action) => {
         case GET_SKIS:
             return {
                 ...state,
-                loading:false,
+                loading:SKIS_LOADED,
                 skis:action.payload
             }
         case ADD_SKI:

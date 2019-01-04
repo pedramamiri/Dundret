@@ -77,9 +77,16 @@ router.post('/search',(req,res)=>{
         const search = {
             minLength : req.body.skiLength.min,
             maxLength : req.body.skiLength.max,
+            type      : req.body.type
         }
         Size.find({length:{$gte:search.minLength,$lte:search.maxLength}})
-         .populate('skis')
+         .populate({
+             path: 'skis',
+             match: { 
+                 type: search.type,
+                 configs: { "$elemMatch" : { length: { $gte:search.minLength,$lte:search.maxLength} } } 
+                 }
+            })
          .exec(function (err, data) {
             if (err){
                console.log(err)  
@@ -88,10 +95,17 @@ router.post('/search',(req,res)=>{
         });
     }else{
         const search = {
-            length : req.body.skiLength
+            length : req.body.skiLength,
+            type   : req.body.type
         }
         Size.find({length:search.length})
-         .populate('skis')
+        .populate({
+            path: 'skis',
+            match: {
+                 type: search.type,
+                }
+            
+           })
          .exec(function (err, data) {
             if (err){
                console.log(err)  

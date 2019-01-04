@@ -5,7 +5,10 @@ import { getSizes }    from '../../actions/sizeActions';
 import PropTypes       from 'prop-types';
 import classNames      from 'classnames';
 import {Calculator}    from '../../calculator'; 
+import {SKIS_LOADED}   from '../../actions/types'
 import './style.css';
+
+
 
 class Form extends Component {
 
@@ -41,15 +44,23 @@ class Form extends Component {
     const calc = new Calculator(data);
     const specifi = calc.calculation();
     this.props.getSpecifi(specifi)
-    this.props.getSizes(specifi)
-    const width = window.innerWidth
-    window.scrollTo({
-      top: 0, 
-      left: width, 
-      behavior: 'smooth'
+    
+    
+    var skisLoading = new Promise((resolve,reject)=>{
+        this.props.getSizes(specifi)
+        resolve({success:true})
     })
+     
+    skisLoading.then(()=>{
+        const width = window.innerWidth
+        window.scrollTo({
+          top: 0, 
+          left: width, 
+          behavior: 'smooth'
+        })  
+    })    
   }
-  
+      
   
   render() {
     return (
@@ -90,7 +101,8 @@ Form.propTypes = {
 
 
 const mapStateToProps = (state)=>({
-  specifi: state.specification
+  specifi     : state.specification,
+  skis_loaded : state.ski.loading
 }) 
   
 export default connect(mapStateToProps,{getSpecifi,getSizes})(Form);

@@ -16,6 +16,7 @@ export const getSizes = (specifi)=> dispatch=>{
             })
             dispatch(getskis(res.data))
         })
+        .catch(err=>console.log(err))
         
 };
 

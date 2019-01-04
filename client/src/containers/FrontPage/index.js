@@ -2,10 +2,11 @@ import React,
        { Component }   from 'react';
 import { Snow }        from './canvas';
 import Specification   from '../Specification';
-import Products        from '../Products';
+import ProductPage     from '../ProductPage';
 import { connect }     from 'react-redux';
 import { getSpecifi }  from '../../actions/specifiAction';
 import PropTypes       from 'prop-types';
+import {SKIS_LOADED}   from '../../actions/types'
 import './style.css';
 
 class FrontPage extends Component {
@@ -24,7 +25,7 @@ class FrontPage extends Component {
           <Specification />
           <canvas id="canvas">
           </canvas>
-          <Products />
+          <ProductPage /> 
       </div>
     );
   }
@@ -35,12 +36,17 @@ FrontPage.propTypes = {
   specifi: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array
+  ]),
+  skis_loaded  : PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
   ])
 }
 
 
 const mapStateToProps = (state)=>({
-  specifi: state.specification
+  specifi    : state.specification,
+  skis_loaded : state.ski.loading
 }) 
   
 export default connect(mapStateToProps,{getSpecifi})(FrontPage);
