@@ -3,12 +3,24 @@ import React,
 import { 
   ReactComponent as Back
   }                         from '../../assets/svg/back.svg';
+import { 
+    ReactComponent as Cart
+    }                         from '../../assets/svg/cart.svg';
 import { connect }          from 'react-redux';
 import PropTypes            from 'prop-types';
 import {SKIS_LOADED}        from '../../actions/types'
+import Products             from '../Products';
 import './style.css';
 
 class ProductPage extends Component {
+
+  componentDidMount(){
+    setTimeout(() => {
+      if(!this.props.skis_loaded){
+        this.backToSpecifi()
+      }
+    }, 4000);
+  }
 
   backToSpecifi = ()=>{
     window.scrollTo({
@@ -25,26 +37,31 @@ class ProductPage extends Component {
           <Back onClick={this.backToSpecifi} />  
         </div>
         {
-        this.props.skis_loaded == SKIS_LOADED ?
-        <div className="products">
-          <div className="productsHint">
-          {typeof this.props.specifi.skiLength == 'object' ?
-              <h4>{`Den bästa skidlängden för dig är mellan ${this.props.specifi.skiLength.min}cm och ${this.props.specifi.skiLength.max}cm.
-              Här nedan finns de bästa ${this.props.specifi.type === 'classic' ? "klassik" : "fristil"}a skidor altenativ som passar med din längd. `}</h4>
-              :
-              <h4>{`Den bästa skidlängden för dig är ${this.props.specifi.skiLength}cm.
-             Här nedan finns de bästa ${this.props.specifi.type === 'classic' ? "klassik" : "fristil"}a skidor altenativ som passar med din längd.`}</h4>
-          }
-          </div>
+        this.props.skis_loaded === SKIS_LOADED ?
+        <div className="productsWrapp">
+          
           <div className="productsTips">
-            
+          {
+            !this.props.size_loading && !this.props.specification_loading ? 
+            <Products />
+            :
+            ""
+          }
 
           </div>
+          <div className="footer">
+          {typeof this.props.specifi.skiLength === 'object' ?
+              <p>{`Den bästa skidlängden : ${this.props.specifi.skiLength.min}cm till ${this.props.specifi.skiLength.max}cm`}</p>
+              :
+              <p>{`Den bästa skidlängden :${this.props.specifi.skiLength}cm`}</p>
+          }
+          <Cart />
+          </div>  
         </div>
         :
+
         <div className="loader"></div>
         }
-          
       </div>
     );
   }
@@ -55,6 +72,8 @@ ProductPage.propTypes = {
     PropTypes.string,
     PropTypes.bool
   ]),
+  size_loading : PropTypes.bool,
+  specification_loading : PropTypes.bool,
   skis         : PropTypes.array,
   specifi      : PropTypes.oneOfType([
     PropTypes.object,
@@ -64,9 +83,11 @@ ProductPage.propTypes = {
 
 
 const mapStateToProps = (state)=>({
-  skis           : state.ski.skis,
-  specifi        : state.specification.specifi,
-  skis_loaded    : state.ski.loading
+  skis                     : state.ski.skis,
+  specifi                  : state.specification.specifi,
+  skis_loaded              : state.ski.loading,
+  size_loading             : state.size.loading,
+  specification_loading    : state.specification.loading
 }) 
   
 export default connect(mapStateToProps,{})(ProductPage);

@@ -9,6 +9,7 @@
 .back{
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: rgba(0, 0, 0, 0.250);
     width: 3%;
     height: 100%;
@@ -22,16 +23,25 @@
     margin-left: 5px;
     cursor: pointer;
 }
-.products{
-    width: 97%;
+.productsWrapp{
+    width: 95%;
+    margin-left: auto;
     display: flex;
     flex-direction: column;
 }
-.productsHint{
-    text-align: center;
-    width: 95%;
+.footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    width: 100%;
     height: 10%;
-    margin-left: 1%;
+    color:#4d4d4dad;
+    background: white;
+    -webkit-box-shadow: inset 0 20px 20px -20px rgba(0,0,0,0.6);
+    -moz-box-shadow: inset 0 20px 20px -20px rgba(0,0,0,0.6);
+    box-shadow: inset 0 20px 20px -20px rgba(0,0,0,0.6);
+    border-radius: 2px;    
 }
 .productsTips{
     width: 100%;
@@ -46,7 +56,7 @@
     margin: auto;
     -webkit-animation: spin 2s linear infinite; /* Safari */
     animation: spin 2s linear infinite;
-  }
+}
   
 
   /* Safari */

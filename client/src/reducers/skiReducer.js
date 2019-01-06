@@ -20,11 +20,6 @@ export default (state = initialState,action) => {
                 loading:SKIS_LOADED,
                 skis:action.payload
             }
-        case ADD_SKI:
-            return{
-                ...state,
-                skis:[action.payload,...state.skis]  
-            }
         case SKIS_LOADING:
             return{
                 ...state,

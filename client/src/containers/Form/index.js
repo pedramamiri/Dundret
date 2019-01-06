@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect }     from 'react-redux';
 import { getSpecifi }  from '../../actions/specifiAction';
 import { getSizes }    from '../../actions/sizeActions';
+import { Validator }   from './formValidation'
 import PropTypes       from 'prop-types';
 import classNames      from 'classnames';
 import {Calculator}    from '../../calculator'; 
@@ -16,7 +17,8 @@ class Form extends Component {
     super(props)
     this.state ={
       classic:false,
-      freeStyle:false
+      freeStyle:false,
+      err      : ""
     }
   }
 
@@ -41,24 +43,39 @@ class Form extends Component {
       classic:this.state.classic,
       freeStyle:this.state.freeStyle
     }
-    const calc = new Calculator(data);
-    const specifi = calc.calculation();
-    this.props.getSpecifi(specifi)
-    
-    
-    var skisLoading = new Promise((resolve,reject)=>{
-        this.props.getSizes(specifi)
-        resolve({success:true})
-    })
-     
-    skisLoading.then(()=>{
-        const width = window.innerWidth
-        window.scrollTo({
-          top: 0, 
-          left: width, 
-          behavior: 'smooth'
-        })  
-    })    
+
+    const validator = new Validator(data);
+    const validate  = validator.validate()
+    if(!validate.success){
+      this.setState({
+        err : validate.err
+      })
+    }else{
+      this.setState({
+        err : ""
+      });
+      const calc = new Calculator(data);
+      const specifi = calc.calculation();
+      if(specifi.err.status){
+        return alert(specifi.err.msg)
+      }else{
+        this.props.getSpecifi(specifi);
+
+        var skisLoading = new Promise((resolve,reject)=>{
+          this.props.getSizes(specifi)
+          resolve({success:true})
+        })
+        skisLoading.then(()=>{
+          const width = window.innerWidth
+          window.scrollTo({
+            top: 0, 
+            left: width, 
+            behavior: 'smooth'
+          })  
+        })
+      }
+    }
+   
   }
       
   
@@ -85,6 +102,7 @@ class Form extends Component {
                 }
                 )} onClick={this.setFreeStyle}>fristil</button>
         <button onClick={this.submit}>submit</button>
+        <span className="errorMsg">{this.state.err}</span>
       </div>
     );
   }

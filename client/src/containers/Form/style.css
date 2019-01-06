@@ -19,12 +19,12 @@
     border-radius: 5px;
     box-shadow: 2px 2px #4d4d4dad;
 }
-button{
+.form button{
     outline: none;
     margin: 10px;
     width: 60%;
     border:none;
-    background-color: rgb(212, 209, 209);
+    /*background-color: rgb(212, 209, 209);*/
     border-radius: 5px;
     color: white;
     font-size: larger;
@@ -32,7 +32,7 @@ button{
     cursor: pointer;
     box-shadow: 1px 1px #4d4d4dad;
 }
-button:last-child{
+.form button:last-child{
     width: 90%;
     background-color: #4d4d4d;
     margin: 12px;
@@ -42,6 +42,10 @@ button:active{
 }
 .choosenType{
     background-color: #009688;
+}
+.errorMsg{
+    margin:5px;
+    color:rgb(236, 63, 63);
 }
 
 

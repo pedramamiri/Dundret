@@ -84,7 +84,6 @@ router.post('/search',(req,res)=>{
              path: 'skis',
              match: { 
                  type: search.type,
-                 configs: { "$elemMatch" : { length: { $gte:search.minLength,$lte:search.maxLength} } } 
                  }
             })
          .exec(function (err, data) {
