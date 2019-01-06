@@ -1,9 +1,7 @@
 import React,
        { Component }   from 'react';
 import './style.css'
-import classNames      from 'classnames'; 
-import { connect }     from 'react-redux';
-import PropTypes       from 'prop-types';
+
 
 
 
@@ -15,9 +13,8 @@ class NotFound extends Component {
   
   render() {
       return (
-        <div className="NotFound">
-           
-            
+        <div className="notFound">
+            <h2>page not found</h2>
         </div>
       );
     }
@@ -25,8 +22,4 @@ class NotFound extends Component {
 
 
 
-const mapStateToProps = (state)=>({
-  
-}) 
-  
-export default connect(mapStateToProps,{})(NotFound);
+export default NotFound;

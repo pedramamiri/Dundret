@@ -6,7 +6,6 @@ import { Validator }   from './formValidation'
 import PropTypes       from 'prop-types';
 import classNames      from 'classnames';
 import {Calculator}    from '../../calculator'; 
-import {SKIS_LOADED}   from '../../actions/types'
 import './style.css';
 
 
@@ -92,16 +91,18 @@ class Form extends Component {
             <input ref={el=>this.age = el} type="text"/>
         </div>
         <button className={classNames(
-                {
-                  'choosenType' : this.state.classic,
+                "type",
+                {  
+                  'choosenType' : this.state.classic
                 }
                 )}  onClick={this.setClassic}>klassisk</button>
         <button className={classNames(
+                "type",
                 {
                   'choosenType' : this.state.freeStyle,
                 }
                 )} onClick={this.setFreeStyle}>fristil</button>
-        <button onClick={this.submit}>submit</button>
+        <button className="submit" onClick={this.submit}>Sök</button>
         <span className="errorMsg">{this.state.err}</span>
       </div>
     );

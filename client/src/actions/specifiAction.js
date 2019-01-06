@@ -2,7 +2,6 @@ import {
     GET_SPECIFICATION,
     SPECIFI_LOADING
        } from './types';
-import axios from 'axios';
 
 export const getSpecifi = (data)=> dispatch=>{
     dispatch(specifiLoading());

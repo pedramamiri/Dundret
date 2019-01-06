@@ -1,7 +1,5 @@
 import {
     GET_SKIS,
-    ADD_SKI,
-    DELETE_SKI,
     SKIS_LOADING,
     SKIS_LOADED
        } from '../actions/types'

@@ -6,7 +6,6 @@ import ProductPage     from '../ProductPage';
 import { connect }     from 'react-redux';
 import { getSpecifi }  from '../../actions/specifiAction';
 import PropTypes       from 'prop-types';
-import {SKIS_LOADED}   from '../../actions/types'
 import './style.css';
 
 class FrontPage extends Component {

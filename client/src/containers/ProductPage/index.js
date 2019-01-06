@@ -31,6 +31,16 @@ class ProductPage extends Component {
   }
   
   render() {
+    if(this.props.skis_loaded === SKIS_LOADED && this.props.skis.length === 0){
+      return(
+        <div className="productsPage">
+          <div className="back">
+            <Back onClick={this.backToSpecifi} />  
+          </div>
+          <h2 style={{margin:"auto"}}>Vi har tyvärr inte någon skida som passar dig</h2>
+        </div>  
+      )
+    }
     return (
       <div className="productsPage">
         <div className="back">
@@ -41,13 +51,7 @@ class ProductPage extends Component {
         <div className="productsWrapp">
           
           <div className="productsTips">
-          {
-            !this.props.size_loading && !this.props.specification_loading ? 
             <Products />
-            :
-            ""
-          }
-
           </div>
           <div className="footer">
           {typeof this.props.specifi.skiLength === 'object' ?
@@ -59,7 +63,6 @@ class ProductPage extends Component {
           </div>  
         </div>
         :
-
         <div className="loader"></div>
         }
       </div>

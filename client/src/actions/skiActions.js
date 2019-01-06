@@ -1,10 +1,7 @@
 import {
     GET_SKIS,
-    ADD_SKI,
-    DELETE_SKI,
     SKIS_LOADING
        } from './types';
-import axios from 'axios';
 
 export const getskis = (data)=> dispatch=>{
     dispatch(setSkiLoading());
