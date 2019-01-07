@@ -11,8 +11,8 @@
 
 #### Barn 5-8 år: kroppslängden + 10 till 20 cm.
 
-### fo start application:
-#### pm run client_install
+###  for start application:
+#### npm run client_install
 #### install all client side dependencies
 #### npm run dev
 #### Runs the app in the development mode.
