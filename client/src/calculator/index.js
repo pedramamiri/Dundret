@@ -12,8 +12,9 @@ function Calculator(specifi){
     }
 
     this.calculation = ()=>{
-        if(this.classic && this.length > 207 ){
-            this.data.err = {status :true,msg:'Klassiska skidor tillverkas bara till längder upp till 207cm'}
+        if(this.classic && this.length >= 190 && this.length <= 200 ){
+            this.data.skiLength = 210
+            this.data.type = 'classic';
         }else if(this.age <= 4){
             this.data.skiLength = this.length
             this.classic ? this.data.type = 'classic' : this.data.type = 'freeStyle';
