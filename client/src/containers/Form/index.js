@@ -37,8 +37,8 @@ class Form extends Component {
 
   submit = ()=>{
     let data = {
-      length: Number(this.length.value),
-      age: Number(this.age.value),
+      length: Math.round(Number(this.length.value)),
+      age: Math.round(Number(this.age.value)),
       classic:this.state.classic,
       freeStyle:this.state.freeStyle
     }

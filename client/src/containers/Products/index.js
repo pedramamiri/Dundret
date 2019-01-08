@@ -2,6 +2,7 @@ import React,
        { Component }        from 'react';
 import { connect }          from 'react-redux';
 import PropTypes            from 'prop-types';
+import classNames           from 'classnames';
 import './style.css';
 
 class Products extends Component {
@@ -67,8 +68,14 @@ class Products extends Component {
                 }
                 </select>
                 <button className="shop">Till kassa</button>
-                <button className="otherProducts" onClick={this.previous} disabled={this.state.skisCount <2}>Tidigare</button>
-                <button className="otherProducts" onClick={this.next} disabled={this.state.skisCount <2}>Nästa</button>
+                <button className={classNames(
+                    "otherProducts",
+                    {"enable" : this.state.skisCount >=2 }
+                )} onClick={this.previous} disabled={this.state.skisCount <2}>Tidigare</button>
+                <button className={classNames(
+                    "otherProducts",
+                    {"enable" : this.state.skisCount >=2 }
+                )} onClick={this.next} disabled={this.state.skisCount <2}>Nästa</button>
 
             </div>
             

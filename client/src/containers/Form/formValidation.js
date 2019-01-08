@@ -8,13 +8,13 @@ function Validator(data){
 
 
     this.validate = ()=>{
-        if (typeof this.length !== 'number' || this.length < 70 || this.length > 300){
+        if (isNaN(this.length) || typeof this.length !== 'number' || this.length < 70 || this.length > 300){
             return this.res = {
                 success:false,
                 err:'kontrollera längden'
             }
         }
-        if(typeof this.age !== 'number' || this.age < 1 || this.age > 100 ){
+        if(isNaN(this.length) || typeof this.age !== 'number' || this.age < 1 || this.age > 100 ){
             return this.res = {
                 success:false,
                 err:'kontrollera ålden'

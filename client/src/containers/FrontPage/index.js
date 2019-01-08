@@ -6,7 +6,9 @@ import ProductPage     from '../ProductPage';
 import { connect }     from 'react-redux';
 import { getSpecifi }  from '../../actions/specifiAction';
 import PropTypes       from 'prop-types';
+import smoothscroll    from 'smoothscroll-polyfill';
 import './style.css';
+smoothscroll.polyfill();
 
 class FrontPage extends Component {
   
