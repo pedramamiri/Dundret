@@ -14,7 +14,7 @@ function Validator(data){
                 err:'kontrollera längden'
             }
         }
-        if(isNaN(this.length) || typeof this.age !== 'number' || this.age < 1 || this.age > 100 ){
+        if(isNaN(this.age) || typeof this.age !== 'number' || this.age < 1 || this.age > 100 ){
             return this.res = {
                 success:false,
                 err:'kontrollera ålden'
