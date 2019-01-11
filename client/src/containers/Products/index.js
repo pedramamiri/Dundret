@@ -3,6 +3,7 @@ import React,
 import { connect }          from 'react-redux';
 import PropTypes            from 'prop-types';
 import classNames           from 'classnames';
+import {getCheckout}          from '../../actions/checkoutAction';
 import './style.css';
 
 class Products extends Component {
@@ -39,6 +40,18 @@ class Products extends Component {
         }
     }
 
+    toCheckout = ()=>{
+       if(sessionStorage.checkout){
+           let checkout = JSON.parse(sessionStorage.checkout)
+           checkout.push({id:this.props.skis[this.state.counter]._id,size:this.size.value})
+           sessionStorage.setItem('checkout',JSON.stringify(checkout))
+       }else{
+           let checkout = [{id:this.props.skis[this.state.counter]._id,size:this.size.value}]
+           sessionStorage.setItem('checkout',JSON.stringify(checkout))
+       } 
+       this.props.getCheckout()
+    }
+
     
     render() {
         var {_id,name,model,price,image,type,desc,configs} = this.props.skis[this.state.counter]
@@ -52,12 +65,12 @@ class Products extends Component {
                 <h4>Description:</h4>
                 <p>{desc}</p>
                 <p>Storlek:</p>
-                <select className="size">   
+                <select ref={el =>this.size = el} className="size">   
                 {
                     configs.map(config=>{
                         if(typeof this.props.specifi.skiLength == 'object'){
                             if( config.qty !== 0  && config.length >= this.props.specifi.skiLength.min && config.length <= this.props.specifi.skiLength.max ){
-                                return <option key={config._id} value={config.length}>{config.length}</option>
+                                return <option key={config._id}  value={config.length}>{config.length}</option>
                             }
                         }else{
                             if(config.length === this.props.specifi.skiLength && config.qty !== 0){
@@ -67,7 +80,7 @@ class Products extends Component {
                     })
                 }
                 </select>
-                <button className="shop">Till kassa</button>
+                <button onClick={this.toCheckout} className="shop">Till kassa</button>
                 <button className={classNames(
                     "otherProducts",
                     {"enable" : this.state.skisCount >=2 }
@@ -96,7 +109,8 @@ Products.propTypes = {
   specifi      : PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array
-  ])
+  ]),
+  getCheckout  : PropTypes.func
 }
 
 
@@ -108,4 +122,4 @@ const mapStateToProps = (state)=>({
   specification_loading    : state.specification.loading
 }) 
   
-export default connect(mapStateToProps,{})(Products);
+export default connect(mapStateToProps,{getCheckout})(Products);

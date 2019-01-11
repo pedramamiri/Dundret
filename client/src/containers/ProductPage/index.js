@@ -59,7 +59,10 @@ class ProductPage extends Component {
               :
               <p>{`Den bästa skidlängden :${this.props.specifi.skiLength}cm`}</p>
           }
-          <Cart />
+          <div>
+
+            <Cart /><span className="checkoutCounter" >{this.props.checkoutQTY ? this.props.checkoutQTY : 0}</span>
+          </div>
           </div>  
         </div>
         :
@@ -90,7 +93,8 @@ const mapStateToProps = (state)=>({
   specifi                  : state.specification.specifi,
   skis_loaded              : state.ski.loading,
   size_loading             : state.size.loading,
-  specification_loading    : state.specification.loading
+  specification_loading    : state.specification.loading,
+  checkoutQTY              : state.checkout.checkout.qty
 }) 
   
 export default connect(mapStateToProps,{})(ProductPage);

@@ -68,7 +68,7 @@ router.post('/',(req,res)=>{
         .catch((err)=> res.json(err))
 });
 
-// @route    POST api/skis
+// @route    POST api/skis/search
 // @desc     Get related ski,search in size category
 // @access   Public
 router.post('/search',(req,res)=>{
@@ -114,6 +114,51 @@ router.post('/search',(req,res)=>{
         
     }   
       
+});
+
+// @route    GET api/skis/checkout
+// @desc     Get checkout products
+// @access   Public
+router.post('/checkout',(req,res)=>{
+    var items = req.body
+    let ids = req.body.map(item=>item.id);
+    var checkout = {
+        products:[],
+        qty:0
+
+    }
+    var counter = 0
+    Ski.find({_id: {$in: ids}}, function (err, products) {
+        if (err) {
+            // handle error
+            console.log(err)
+        } else {
+            products.forEach(product=>{
+                let sizes ={}
+                items.forEach(item=>{
+                    if(product._id == item.id){
+                        
+                        if(sizes[item.size]){
+                            sizes[item.size] = sizes[item.size] +1
+                            counter += 1;
+                        }else{
+                            sizes[item.size] = 1
+                            counter += 1;
+                        }
+                            
+                    } 
+                })
+               checkout.products.push({
+                   product:product,
+                   sizes:sizes
+               }) 
+            })
+            checkout.qty = counter   
+            res.send(checkout)
+        }
+    })
+
+    
 });
 
 

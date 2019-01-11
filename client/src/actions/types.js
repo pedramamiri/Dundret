@@ -7,3 +7,5 @@ export const GET_SPECIFICATION = 'GET_SPECIFICATION';
 export const SPECIFI_LOADING   = 'SPECIFI_LOADING';
 export const GET_SIZES         = 'GET_SIZES';
 export const SIZES_LOADING     = 'SIZES_LOADING';
+export const GET_CHECKOUT      = 'GET_CHECKOUT';
+export const CHECKOUT_LOADING  = 'CHECKOUT_LOADING';
