@@ -3,7 +3,7 @@ import React,
 import { connect }          from 'react-redux';
 import PropTypes            from 'prop-types';
 import classNames           from 'classnames';
-import {getCheckout}          from '../../actions/checkoutAction';
+import {getCheckout}        from '../../actions/checkoutAction';
 import './style.css';
 
 class Products extends Component {

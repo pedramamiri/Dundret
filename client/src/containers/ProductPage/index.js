@@ -5,11 +5,12 @@ import {
   }                         from '../../assets/svg/back.svg';
 import { 
     ReactComponent as Cart
-    }                         from '../../assets/svg/cart.svg';
+    }                       from '../../assets/svg/cart.svg';
 import { connect }          from 'react-redux';
 import PropTypes            from 'prop-types';
 import {SKIS_LOADED}        from '../../actions/types'
 import Products             from '../Products';
+import {getCheckout}        from '../../actions/checkoutAction';
 import './style.css';
 
 class ProductPage extends Component {
@@ -20,6 +21,10 @@ class ProductPage extends Component {
         this.backToSpecifi()
       }
     }, 4000);
+  }
+
+  componentDidUpdate(){
+    this.props.getCheckout()
   }
 
   backToSpecifi = ()=>{
@@ -60,8 +65,7 @@ class ProductPage extends Component {
               <p>{`Den bästa skidlängden :${this.props.specifi.skiLength}cm`}</p>
           }
           <div>
-
-            <Cart /><span className="checkoutCounter" >{this.props.checkoutQTY ? this.props.checkoutQTY : 0}</span>
+            <Cart className="cart" /><span className="checkoutCounter" >{this.props.checkoutQTY ? this.props.checkoutQTY : 0}</span>
           </div>
           </div>  
         </div>
@@ -84,7 +88,8 @@ ProductPage.propTypes = {
   specifi      : PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array
-  ])
+  ]),
+  getCheckout  : PropTypes.func
 }
 
 
@@ -97,7 +102,7 @@ const mapStateToProps = (state)=>({
   checkoutQTY              : state.checkout.checkout.qty
 }) 
   
-export default connect(mapStateToProps,{})(ProductPage);
+export default connect(mapStateToProps,{getCheckout})(ProductPage);
 
 
 

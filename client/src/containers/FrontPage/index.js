@@ -6,6 +6,9 @@ import ProductPage     from '../ProductPage';
 import { connect }     from 'react-redux';
 import { getSpecifi }  from '../../actions/specifiAction';
 import PropTypes       from 'prop-types';
+import { 
+  ReactComponent as Forward
+  }                    from '../../assets/svg/forward.svg';
 import smoothscroll    from 'smoothscroll-polyfill';
 import './style.css';
 smoothscroll.polyfill();
@@ -20,17 +23,29 @@ class FrontPage extends Component {
     snow.animate();
   }
 
+  Forward = ()=>{
+    const width = window.innerWidth
+    window.scrollTo({
+      top: 0, 
+      left: width, 
+      behavior: 'smooth'
+    }) 
+  }
+
   render() {
     return (
       <div className="FrontPage">
           <Specification />
           <canvas id="canvas">
           </canvas>
+          { this.props.checkoutQTY ? <div className="forward" ><Forward onClick={this.Forward} /></div> : "" }
           <ProductPage /> 
       </div>
     );
   }
 }
+
+
 
 FrontPage.propTypes = {
   getSpecifi: PropTypes.func.isRequired,
@@ -46,8 +61,9 @@ FrontPage.propTypes = {
 
 
 const mapStateToProps = (state)=>({
-  specifi    : state.specification,
-  skis_loaded : state.ski.loading
+  specifi     : state.specification,
+  skis_loaded : state.ski.loading,
+  checkoutQTY : state.checkout.checkout.qty
 }) 
   
 export default connect(mapStateToProps,{getSpecifi})(FrontPage);
