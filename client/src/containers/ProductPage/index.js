@@ -11,11 +11,13 @@ import PropTypes            from 'prop-types';
 import {SKIS_LOADED}        from '../../actions/types'
 import Products             from '../Products';
 import {getCheckout}        from '../../actions/checkoutAction';
+import { Link }             from 'react-router-dom';
 import './style.css';
 
 class ProductPage extends Component {
 
   componentDidMount(){
+    this.props.getCheckout()
     setTimeout(() => {
       if(!this.props.skis_loaded){
         this.backToSpecifi()
@@ -23,9 +25,7 @@ class ProductPage extends Component {
     }, 4000);
   }
 
-  componentDidUpdate(){
-    this.props.getCheckout()
-  }
+  
 
   backToSpecifi = ()=>{
     window.scrollTo({
@@ -65,7 +65,9 @@ class ProductPage extends Component {
               <p>{`Den bästa skidlängden :${this.props.specifi.skiLength}cm`}</p>
           }
           <div>
-            <Cart className="cart" /><span className="checkoutCounter" >{this.props.checkoutQTY ? this.props.checkoutQTY : 0}</span>
+            <Link style={{textDecoration:"none"}} to="/checkout">
+              <Cart className="cart" /><span className="checkoutCounter" >{this.props.checkoutQTY ? this.props.checkoutQTY : 0}</span>
+            </Link>
           </div>
           </div>  
         </div>

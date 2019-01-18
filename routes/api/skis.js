@@ -124,10 +124,12 @@ router.post('/checkout',(req,res)=>{
     let ids = req.body.map(item=>item.id);
     var checkout = {
         products:[],
-        qty:0
+        qty:0,
+        totalPrice:0
 
     }
-    var counter = 0
+    var counter = 0;
+    var totalPrice = 0;
     Ski.find({_id: {$in: ids}}, function (err, products) {
         if (err) {
             // handle error
@@ -141,9 +143,11 @@ router.post('/checkout',(req,res)=>{
                         if(sizes[item.size]){
                             sizes[item.size] = sizes[item.size] +1
                             counter += 1;
+                            totalPrice = product.price + totalPrice
                         }else{
                             sizes[item.size] = 1
                             counter += 1;
+                            totalPrice = product.price + totalPrice
                         }
                             
                     } 
@@ -153,7 +157,8 @@ router.post('/checkout',(req,res)=>{
                    sizes:sizes
                }) 
             })
-            checkout.qty = counter   
+            checkout.qty = counter  
+            checkout.totalPrice = totalPrice 
             res.send(checkout)
         }
     })

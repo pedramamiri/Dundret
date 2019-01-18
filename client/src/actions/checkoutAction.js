@@ -6,6 +6,7 @@ import axios from 'axios';
 
 export const getCheckout = ()=> dispatch=>{
     if(sessionStorage.checkout){
+        dispatch(checkoutLoading())
         let checkout = JSON.parse(sessionStorage.checkout)
         axios
             .post('/api/skis/checkout',checkout)

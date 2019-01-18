@@ -72,3 +72,6 @@
 .checkoutCounter{
     vertical-align: top;
 }
+.cart{
+    cursor: pointer;
+}

@@ -1,0 +1,50 @@
+.checkout{
+    
+}
+.checkout h1,h2{
+    margin-left: 10px;
+}
+.checkoutSortiments{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+}
+.checkoutProduct{
+    width: 50%;
+    height: 100px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    box-shadow: 1px 1px 5px 1px gray;
+}
+.checkProImg{
+    width: 10%;
+    height: -webkit-fill-available;
+    float: left;
+}
+.checkProSpecifi{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    width: 90%;
+   
+
+}
+.checkProSizeQty{
+    display:none;
+    padding:5px;
+    width: 100%;
+    position: relative;
+    top:-100%;
+    background-color: white;
+    height: -webkit-fill-available;
+}
+.settingClose{
+    float: right;
+}
+.settingClose svg{
+    cursor: pointer;
+}
+.settingOpen{
+    display: flex;
+}
