@@ -7,29 +7,53 @@ import {getCheckout}   from '../../actions/checkoutAction';
 import { 
     ReactComponent as Close
     }                  from '../../assets/svg/close.svg';
-import { 
-    ReactComponent as Setting
-    }                  from '../../assets/svg/setting.svg';
+
 import './style.css';
+import axios from 'axios';
 
 
 class Checkout extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            setting :false
+    
+
+componentWillMount(){
+    this.props.getCheckout()
+}
+plusSizeQty = (id,n)=>{
+    let checkout = JSON.parse(sessionStorage.checkout)
+    checkout.push({id:id,size:n})
+    sessionStorage.setItem('checkout',JSON.stringify(checkout))
+    this.props.getCheckout()
+}
+minusSizeQty = (id,n)=>{
+    var check = true
+    let checkout = JSON.parse(sessionStorage.checkout)
+    var newCheckout = []
+    checkout.forEach(item=>{
+        if(check){
+            if(item.id == id && item.size == n ){
+                check = false
+            }else{
+               newCheckout.push(item)
+            }
+        }else{
+            newCheckout.push(item)
         }
-    }
+    })
+    sessionStorage.setItem('checkout',JSON.stringify(newCheckout))
+    this.props.getCheckout()
+}  
+delete = (id)=>{
+    let checkout = JSON.parse(sessionStorage.checkout)
+    checkout = checkout.filter(item=> item.id !== id )
+    sessionStorage.setItem('checkout',JSON.stringify(checkout))
+    this.props.getCheckout()
+}
+toShop = ()=>{
+    var headers = {"Access-Control-Allow-Origin": "*"}
+    axios.post('/api/pay',{tp:this.props.checkoutTP},headers)
+}
 
-  componentWillMount(){
-      this.props.getCheckout()
-  }  
-
-  setting = ()=>{
-      this.setState({
-          setting:!this.state.setting
-      })
-  }
+  
   
 
   render() {
@@ -37,33 +61,34 @@ class Checkout extends Component {
       <div className="checkout">
           <h1>VARUKORG</h1>
           {
-            this.props.checkoutQTY && !this.props.checkout_loading ? 
+            this.props.checkoutQTY  ? 
+                <div className="samma">
+                    <span>Antal : {this.props.checkoutQTY} </span>
+                    <span>Summan : {this.props.checkoutTP} </span>
+                    <button onClick={this.toShop} className="toShop">Till betalning</button>
+                </div>
+            :
+            ""
+
+          }
+          {
+            this.props.checkoutQTY  ? 
                 <div className="checkoutSortiments" >
                     {
                     this.props.checkoutProducts.map(item => 
                         
                         <div key={item.product._id} className="checkoutProduct">
-                            <div className="settingClose">
-                                <Setting onClick={this.setting} />
-                                <Close onClick={this.delete}  />
-                            </div>
-                            <img src={item.product.image} alt="product" className="checkProImg" />
+   
+                            <Close onClick={ ()=>this.delete(item.product._id)}  />
                             <div className="checkProSpecifi" >
                                 <span>{item.product.name}</span>
                                 <span>{item.product.model}</span>
                                 <span>{item.product.price} kr</span>
-                            </div>
-                            <div className={
-                                classNames(
-                                    "checkProSizeQty",
-                                    {"settingOpen" : this.state.setting}
-                                )
-                            } >
-                                <div className= "settingClose">
-                                    <Close onClick={this.setting}  />
-                                </div>
-                            </div>
+                                <span style={{color:"red"}}>Storlek:</span>
+                                {Object.keys(item.sizes).map(n=><span key={n}>{n} > <button onClick={()=>this.minusSizeQty(item.product._id,n)}  className="sizeQTY" >-</button> {item.sizes[n]} <button onClick={()=>this.plusSizeQty(item.product._id,n)} className="sizeQTY" >+</button></span>)}
 
+                            </div>
+                        
                         </div>
                     
                     )
@@ -102,6 +127,7 @@ const mapStateToProps = (state)=>({
   specifi          : state.specification,
   skis_loaded      : state.ski.loading,
   checkoutQTY      : state.checkout.checkout.qty,
+  checkoutTP       : state.checkout.checkout.totalPrice,
   checkoutProducts : state.checkout.checkout.products,
   checkout_loading : state.checkout.loading
 }) 

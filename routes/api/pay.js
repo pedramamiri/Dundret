@@ -16,22 +16,16 @@ router.post('/',(req,res)=>{
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "http://localhost:5000/api/pay/success",
+            "return_url": "http://localhost:3000/success",
             "cancel_url": "http://localhost:3000/cancel"
         },
         "transactions": [{
             "item_list": {
-                "items": [{
-                    "name": "Red Sox Hat",
-                    "sku": "001",
-                    "price": "25.00",
-                    "currency": "USD",
-                    "quantity": 1
-                }]
+                
             },
             "amount": {
                 "currency": "USD",
-                "total": "25.00"
+                "total": req.body.tp/10
             },
             "description": "Hat for the best team ever"
         }]
@@ -42,7 +36,7 @@ router.post('/',(req,res)=>{
     } else {
         payment.links.forEach(link=>{
         if(link.rel === 'approval_url' ){
-            res.send(link.href)
+            res.redirect(link.href)
         }
         })  
     }

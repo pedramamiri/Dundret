@@ -1,5 +1,5 @@
 .checkout{
-    
+    width: 100vw;
 }
 .checkout h1,h2{
     margin-left: 10px;
@@ -7,15 +7,19 @@
 .checkoutSortiments{
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 50%;
 
 }
 .checkoutProduct{
-    width: 50%;
-    height: 100px;
+    width: 100%;
+    min-height: 100px;
     margin-left: 10px;
     margin-bottom: 15px;
     box-shadow: 1px 1px 5px 1px gray;
+}
+.checkoutProduct svg{
+    float:right;
+    cursor: pointer;
 }
 .checkProImg{
     width: 10%;
@@ -39,12 +43,34 @@
     background-color: white;
     height: -webkit-fill-available;
 }
-.settingClose{
-    float: right;
-}
-.settingClose svg{
+.sizeQTY{
+    border: none;
+    background-color: teal;
+    border-radius: 2px;
+    width: 20px;
+    padding: 2px;
     cursor: pointer;
+    color:white;
 }
-.settingOpen{
+
+.samma{
     display: flex;
+    box-shadow: 1px 1px 5px 1px gray;
+    height: 150px;
+    width: 40%;
+    margin: 10px;
+    float: right;
+    margin-top: 0;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-size: xx-large;
+}
+.toShop{
+    width: 90%;
+    background-color: teal;
+    border:none;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
 }
