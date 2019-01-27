@@ -51,6 +51,8 @@ delete = (id)=>{
 toShop = ()=>{
     var headers = {"Access-Control-Allow-Origin": "*"}
     axios.post('/api/pay',{tp:this.props.checkoutTP},headers)
+        .then(res =>console.log(res.data))
+        .catch(err=>console.log(err))
 }
 
   

@@ -23,7 +23,7 @@ app.use(bodyParser.json())
 
 // mongo connect
 mongoose
-    .connect(process.env._mongoURI, { useNewUrlParser: true })
+    .connect("mongodb://p.a.r:pedrammardep1368@ds137913.mlab.com:37913/mern", { useNewUrlParser: true })
     .then(()=>console.log('mongo db is connected...'))
     .catch((err)=>console.log(err))
 

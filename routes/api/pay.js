@@ -36,7 +36,7 @@ router.post('/',(req,res)=>{
     } else {
         payment.links.forEach(link=>{
         if(link.rel === 'approval_url' ){
-            res.redirect(link.href)
+            res.send(link.href)
         }
         })  
     }
